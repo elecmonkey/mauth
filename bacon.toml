@@ -1,11 +1,13 @@
-default_job = "check"
+default_job = "run"
 
 [jobs.check]
 command = ["cargo", "check"]
 need_stdout = false
+watch = ["src", "Cargo.toml"]
 
 [jobs.run]
 command = ["cargo", "run"]
+watch = ["src", "Cargo.toml", "bacon.toml", ".env", ".env.local"]
 need_stdout = true
 allow_warnings = true
 
@@ -13,3 +15,4 @@ allow_warnings = true
 command = ["cargo", "test"]
 need_stdout = true
 allow_failures = true
+watch = ["src", "Cargo.toml"]
