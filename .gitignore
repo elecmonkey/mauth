@@ -1,0 +1,41 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Rust
+/target/
+**/*.rs.bk
+
+# Frontend
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.turbo/
+.next/
+.nuxt/
+.svelte-kit/
+.parcel-cache/
+coverage/
+dist/
+build/
+*.tsbuildinfo
