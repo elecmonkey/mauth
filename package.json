@@ -1,0 +1,10 @@
+{
+  "name": "mauth",
+  "private": true,
+  "scripts": {
+    "dev:admin": "pnpm --filter @mauth/admin dev",
+    "build:admin": "pnpm --filter @mauth/admin build",
+    "lint:admin": "pnpm --filter @mauth/admin lint"
+  },
+  "packageManager": "pnpm@10.33.0"
+}
