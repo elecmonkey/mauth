@@ -38,29 +38,32 @@ export function UserPoolFormDialog({
   const [values, setValues] = useState(initialValues)
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth='sm'>
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{mode === 'create' ? 'Create User Pool' : 'Edit User Pool'}</DialogTitle>
       <DialogContent sx={{ px: 3, pt: 1.5, pb: 0 }}>
         <Stack spacing={2} sx={{ mt: 1 }}>
           <TextField
-            label='Code'
+            label="Code"
             disabled={mode === 'edit'}
             value={values.code}
             onChange={(event) => setValues((prev) => ({ ...prev, code: event.target.value }))}
-            helperText='Stable identifier. Lowercase letters, numbers, and dashes only.'
+            helperText="Stable identifier. Lowercase letters, numbers, and dashes only."
           />
           <TextField
-            label='Name'
+            label="Name"
             value={values.name}
             onChange={(event) => setValues((prev) => ({ ...prev, name: event.target.value }))}
           />
           <TextField
-            label='Description'
+            label="Description"
             value={values.description}
             multiline
             minRows={3}
             onChange={(event) =>
-              setValues((prev) => ({ ...prev, description: event.target.value }))
+              setValues((prev) => ({
+                ...prev,
+                description: event.target.value,
+              }))
             }
           />
           <FormControlLabel
@@ -68,17 +71,20 @@ export function UserPoolFormDialog({
               <Switch
                 checked={values.allowSelfSignup}
                 onChange={(event) =>
-                  setValues((prev) => ({ ...prev, allowSelfSignup: event.target.checked }))
+                  setValues((prev) => ({
+                    ...prev,
+                    allowSelfSignup: event.target.checked,
+                  }))
                 }
               />
             }
-            label='Allow self signup'
+            label="Allow self signup"
           />
         </Stack>
       </DialogContent>
       <DialogActions sx={{ px: 3, pb: 3, pt: 2 }}>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={() => onSubmit(values)} variant='contained' disabled={submitting}>
+        <Button onClick={() => onSubmit(values)} variant="contained" disabled={submitting}>
           {mode === 'create' ? 'Create' : 'Save'}
         </Button>
       </DialogActions>

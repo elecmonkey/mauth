@@ -6,7 +6,10 @@ const paginationSchema = z.object({
   total: z.number().int().nonnegative(),
 })
 
-const totpCodeSchema = z.string().trim().regex(/^\d{6}$/, 'TOTP code must be 6 digits.')
+const totpCodeSchema = z
+  .string()
+  .trim()
+  .regex(/^\d{6}$/, 'TOTP code must be 6 digits.')
 const optionalTextSchema = z.string().trim().min(1).optional()
 const nullableTextSchema = z.string().trim().min(1).nullable()
 const codeSchema = z
@@ -189,9 +192,21 @@ export const createProfileFieldPayloadSchema = z.object({
     .trim()
     .min(1)
     .max(64)
-    .regex(/^[a-z0-9_]+$/, 'Field key may only contain lowercase letters, numbers, and underscores.'),
+    .regex(
+      /^[a-z0-9_]+$/,
+      'Field key may only contain lowercase letters, numbers, and underscores.',
+    ),
   fieldName: z.string().trim().min(1).max(64),
-  fieldType: z.enum(['string', 'text', 'number', 'boolean', 'date', 'datetime', 'select', 'multi_select']),
+  fieldType: z.enum([
+    'string',
+    'text',
+    'number',
+    'boolean',
+    'date',
+    'datetime',
+    'select',
+    'multi_select',
+  ]),
   isRequired: z.boolean().optional(),
   isUnique: z.boolean().optional(),
   isSearchable: z.boolean().optional(),

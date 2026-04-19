@@ -18,19 +18,19 @@ const cards = [
 export function DashboardPage() {
   return (
     <Stack spacing={3}>
-      <Alert severity='info'>
-        This is the first-stage admin shell. Next steps can add 2FA, RBAC, refresh tokens, and
-        audit logs.
+      <Alert severity="info">
+        This is the first-stage admin shell. Next steps can add 2FA, RBAC, refresh tokens, and audit
+        logs.
       </Alert>
       <Grid container spacing={2}>
         {cards.map((card) => (
           <Grid size={{ xs: 12, md: 4 }} key={card.title}>
             <Card sx={{ height: '100%' }}>
               <CardContent>
-                <Typography variant='h6' gutterBottom>
+                <Typography variant="h6" gutterBottom>
                   {card.title}
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant="body2" color="text.secondary">
                   {card.description}
                 </Typography>
               </CardContent>

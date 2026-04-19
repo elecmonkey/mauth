@@ -24,13 +24,9 @@ const snakify = (key: string): string => {
   return result
 }
 
-const shouldTransform = (value: unknown): boolean =>
-  isPlainObject(value) || Array.isArray(value)
+const shouldTransform = (value: unknown): boolean => isPlainObject(value) || Array.isArray(value)
 
-const transformKeys = (
-  value: unknown,
-  transformKey: (key: string) => string,
-): unknown => {
+const transformKeys = (value: unknown, transformKey: (key: string) => string): unknown => {
   if (Array.isArray(value)) {
     return value.map((item) => transformKeys(item, transformKey))
   }
@@ -42,15 +38,11 @@ const transformKeys = (
   const result: Record<string, unknown> = {}
   Object.entries(value).forEach(([key, val]) => {
     const nextKey = transformKey(key)
-    result[nextKey] = shouldTransform(val)
-      ? transformKeys(val, transformKey)
-      : val
+    result[nextKey] = shouldTransform(val) ? transformKeys(val, transformKey) : val
   })
   return result
 }
 
-export const toCamelCase = <T>(value: T): T =>
-  transformKeys(value, camelize) as T
+export const toCamelCase = <T>(value: T): T => transformKeys(value, camelize) as T
 
-export const toSnakeCase = <T>(value: T): T =>
-  transformKeys(value, snakify) as T
+export const toSnakeCase = <T>(value: T): T => transformKeys(value, snakify) as T

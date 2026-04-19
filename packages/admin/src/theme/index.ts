@@ -19,8 +19,7 @@ export const appTheme = createTheme({
     },
   },
   typography: {
-    fontFamily:
-      "Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    fontFamily: "Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
   components: {
     MuiButton: {

@@ -1,5 +1,15 @@
 import { useState } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Stack, Switch, TextField } from '@mui/material'
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControlLabel,
+  Stack,
+  Switch,
+  TextField,
+} from '@mui/material'
 
 export interface RedirectUriFormValues {
   redirectUri: string
@@ -24,15 +34,18 @@ export function RedirectUriFormDialog({
   const [values, setValues] = useState(initialValues)
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth='sm'>
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>Add Redirect URI</DialogTitle>
       <DialogContent sx={{ px: 3, pt: 1.5, pb: 0 }}>
         <Stack spacing={2} sx={{ mt: 1 }}>
           <TextField
-            label='Redirect URI'
+            label="Redirect URI"
             value={values.redirectUri}
             onChange={(event) =>
-              setValues((prev) => ({ ...prev, redirectUri: event.target.value }))
+              setValues((prev) => ({
+                ...prev,
+                redirectUri: event.target.value,
+              }))
             }
           />
           <FormControlLabel
@@ -40,17 +53,20 @@ export function RedirectUriFormDialog({
               <Switch
                 checked={values.isPrimary}
                 onChange={(event) =>
-                  setValues((prev) => ({ ...prev, isPrimary: event.target.checked }))
+                  setValues((prev) => ({
+                    ...prev,
+                    isPrimary: event.target.checked,
+                  }))
                 }
               />
             }
-            label='Set as primary'
+            label="Set as primary"
           />
         </Stack>
       </DialogContent>
       <DialogActions sx={{ px: 3, pb: 3, pt: 2 }}>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={() => onSubmit(values)} variant='contained' disabled={submitting}>
+        <Button onClick={() => onSubmit(values)} variant="contained" disabled={submitting}>
           Add
         </Button>
       </DialogActions>

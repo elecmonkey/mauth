@@ -108,44 +108,43 @@ export function LoginPage() {
         alignItems: 'center',
         justifyContent: 'center',
         px: 2,
-        background:
-          'linear-gradient(180deg, rgba(25,118,210,0.10) 0%, rgba(245,247,251,1) 45%)',
+        background: 'linear-gradient(180deg, rgba(25,118,210,0.10) 0%, rgba(245,247,251,1) 45%)',
       }}
     >
       <Card sx={{ width: '100%', maxWidth: 440, boxShadow: 6 }}>
-        <CardContent component='form' onSubmit={handleSubmit} sx={{ p: 4 }}>
+        <CardContent component="form" onSubmit={handleSubmit} sx={{ p: 4 }}>
           <Stack spacing={3}>
             <Stack spacing={1} sx={{ alignItems: 'center' }}>
-              <ShieldRoundedIcon color='primary' sx={{ fontSize: 44 }} />
-              <Typography variant='h5' sx={{ fontWeight: 700 }}>
+              <ShieldRoundedIcon color="primary" sx={{ fontSize: 44 }} />
+              <Typography variant="h5" sx={{ fontWeight: 700 }}>
                 MAuth Admin
               </Typography>
-              <Typography variant='body2' color='text.secondary' sx={{ textAlign: 'center' }}>
+              <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
                 {helperMessage}
               </Typography>
             </Stack>
 
-            {errorMessage ? <Alert severity='error'>{errorMessage}</Alert> : null}
+            {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
 
             {pendingTotp ? (
               <>
-                <Alert severity='info'>
+                <Alert severity="info">
                   Second factor required for <strong>{pendingTotp.user.email}</strong>.
                 </Alert>
                 <TextField
-                  label='Authenticator code'
-                  autoComplete='one-time-code'
+                  label="Authenticator code"
+                  autoComplete="one-time-code"
                   value={totpCode}
                   onChange={(event) => setTotpCode(event.target.value)}
-                  inputMode='numeric'
-                  placeholder='123456'
+                  inputMode="numeric"
+                  placeholder="123456"
                   fullWidth
                 />
-                <Stack direction='row' spacing={1.5}>
+                <Stack direction="row" spacing={1.5}>
                   <Button
-                    type='button'
-                    variant='outlined'
-                    size='large'
+                    type="button"
+                    variant="outlined"
+                    size="large"
                     onClick={handleBackToCredentials}
                     disabled={isPending}
                     sx={{ flex: 1 }}
@@ -153,11 +152,11 @@ export function LoginPage() {
                     Back
                   </Button>
                   <Button
-                    type='submit'
-                    variant='contained'
-                    size='large'
+                    type="submit"
+                    variant="contained"
+                    size="large"
                     disabled={isPending}
-                    startIcon={isPending ? <CircularProgress color='inherit' size={18} /> : null}
+                    startIcon={isPending ? <CircularProgress color="inherit" size={18} /> : null}
                     sx={{ flex: 1.4 }}
                   >
                     {isPending ? 'Verifying...' : 'Verify and sign in'}
@@ -167,28 +166,28 @@ export function LoginPage() {
             ) : (
               <>
                 <TextField
-                  label='Email'
-                  type='email'
-                  autoComplete='email'
+                  label="Email"
+                  type="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   fullWidth
                 />
                 <TextField
-                  label='Password'
-                  type='password'
-                  autoComplete='current-password'
+                  label="Password"
+                  type="password"
+                  autoComplete="current-password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   fullWidth
                 />
 
                 <Button
-                  type='submit'
-                  variant='contained'
-                  size='large'
+                  type="submit"
+                  variant="contained"
+                  size="large"
                   disabled={isPending}
-                  startIcon={isPending ? <CircularProgress color='inherit' size={18} /> : null}
+                  startIcon={isPending ? <CircularProgress color="inherit" size={18} /> : null}
                 >
                   {isPending ? 'Signing in...' : 'Sign in'}
                 </Button>

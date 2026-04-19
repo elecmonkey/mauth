@@ -46,7 +46,7 @@ export function ApplicationsTable({
             <TableCell>Type</TableCell>
             <TableCell>User Pool</TableCell>
             <TableCell>Status</TableCell>
-            <TableCell align='right'>Actions</TableCell>
+            <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -60,7 +60,7 @@ export function ApplicationsTable({
             >
               <TableCell>
                 <Typography sx={{ fontWeight: 600 }}>{item.name}</Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant="body2" color="text.secondary">
                   {item.clientId}
                 </Typography>
               </TableCell>
@@ -69,18 +69,18 @@ export function ApplicationsTable({
               <TableCell>{item.userPool.name}</TableCell>
               <TableCell>
                 <Chip
-                  size='small'
+                  size="small"
                   color={item.isActive ? 'success' : 'default'}
                   label={item.isActive ? 'Active' : 'Disabled'}
                 />
               </TableCell>
-              <TableCell align='right' onClick={(event) => event.stopPropagation()}>
-                <Stack direction='row' spacing={1} sx={{ justifyContent: 'flex-end' }}>
-                  <Button size='small' startIcon={<EditRoundedIcon />} onClick={() => onEdit(item)}>
+              <TableCell align="right" onClick={(event) => event.stopPropagation()}>
+                <Stack direction="row" spacing={1} sx={{ justifyContent: 'flex-end' }}>
+                  <Button size="small" startIcon={<EditRoundedIcon />} onClick={() => onEdit(item)}>
                     Edit
                   </Button>
                   <Button
-                    size='small'
+                    size="small"
                     startIcon={
                       item.isActive ? <PauseCircleRoundedIcon /> : <PlayCircleRoundedIcon />
                     }
@@ -90,8 +90,8 @@ export function ApplicationsTable({
                     {item.isActive ? 'Disable' : 'Enable'}
                   </Button>
                   <Button
-                    size='small'
-                    color='error'
+                    size="small"
+                    color="error"
                     startIcon={<DeleteRoundedIcon />}
                     disabled={busy}
                     onClick={() => onDelete(item)}

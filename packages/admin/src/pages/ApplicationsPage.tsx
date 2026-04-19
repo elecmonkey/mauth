@@ -19,9 +19,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { ApplicationFormDialog, type ApplicationFormValues } from '../components/applications/ApplicationFormDialog'
+import {
+  ApplicationFormDialog,
+  type ApplicationFormValues,
+} from '../components/applications/ApplicationFormDialog'
 import { ApplicationsTable } from '../components/applications/ApplicationsTable'
-import { RedirectUriFormDialog, type RedirectUriFormValues } from '../components/applications/RedirectUriFormDialog'
+import {
+  RedirectUriFormDialog,
+  type RedirectUriFormValues,
+} from '../components/applications/RedirectUriFormDialog'
 import { ResetSecretDialog } from '../components/applications/ResetSecretDialog'
 import { isApiError } from '../http'
 import {
@@ -66,8 +72,16 @@ export function ApplicationsPage() {
   const [appMode, setAppMode] = useState<'create' | 'edit'>('create')
   const [editingApp, setEditingApp] = useState<ApplicationSummary | null>(null)
 
-  const userPoolsQuery = useUserPoolsQuery({ page: 1, pageSize: 100, isActive: true })
-  const listQuery = useApplicationsQuery({ keyword: keyword || undefined, page: 1, pageSize: 50 })
+  const userPoolsQuery = useUserPoolsQuery({
+    page: 1,
+    pageSize: 100,
+    isActive: true,
+  })
+  const listQuery = useApplicationsQuery({
+    keyword: keyword || undefined,
+    page: 1,
+    pageSize: 50,
+  })
   const detailQuery = useApplicationDetailQuery(selectedId)
   const createAppMutation = useCreateApplicationMutation()
   const updateAppMutation = useUpdateApplicationMutation()
@@ -251,31 +265,39 @@ export function ApplicationsPage() {
 
   return (
     <Stack spacing={3}>
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ justifyContent: 'space-between' }}>
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        spacing={2}
+        sx={{ justifyContent: 'space-between' }}
+      >
         <TextField
-          label='Search applications'
+          label="Search applications"
           value={keyword}
           onChange={(event) => setKeyword(event.target.value)}
           sx={{ minWidth: { xs: '100%', md: 320 } }}
         />
-        <Stack direction='row' spacing={1.5}>
-          <Button variant='outlined' startIcon={<RefreshRoundedIcon />} onClick={() => listQuery.refetch()}>
+        <Stack direction="row" spacing={1.5}>
+          <Button
+            variant="outlined"
+            startIcon={<RefreshRoundedIcon />}
+            onClick={() => listQuery.refetch()}
+          >
             Refresh
           </Button>
-          <Button variant='contained' startIcon={<AddRoundedIcon />} onClick={openCreateApp}>
+          <Button variant="contained" startIcon={<AddRoundedIcon />} onClick={openCreateApp}>
             New Application
           </Button>
         </Stack>
       </Stack>
 
-      {errorMessage ? <Alert severity='error'>{errorMessage}</Alert> : null}
+      {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
       {revealedSecret ? (
         <Alert
-          severity='success'
+          severity="success"
           action={
             <Button
-              color='inherit'
-              size='small'
+              color="inherit"
+              size="small"
               startIcon={<ContentCopyRoundedIcon />}
               onClick={() => navigator.clipboard.writeText(revealedSecret)}
             >
@@ -305,33 +327,44 @@ export function ApplicationsPage() {
             {detailQuery.data ? (
               <Stack spacing={2.5}>
                 <Stack spacing={1}>
-                  <Typography variant='h6'>{detailQuery.data.name}</Typography>
-                  <Stack direction='row' spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
+                  <Typography variant="h6">{detailQuery.data.name}</Typography>
+                  <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
                     <Chip
-                      size='small'
+                      size="small"
                       color={detailQuery.data.isActive ? 'success' : 'default'}
                       label={detailQuery.data.isActive ? 'Active' : 'Disabled'}
                     />
-                    <Chip size='small' variant='outlined' label={detailQuery.data.applicationType} />
+                    <Chip
+                      size="small"
+                      variant="outlined"
+                      label={detailQuery.data.applicationType}
+                    />
                   </Stack>
-                  <Typography variant='body2' color='text.secondary'>
+                  <Typography variant="body2" color="text.secondary">
                     Client ID: {detailQuery.data.clientId}
                   </Typography>
-                  <Typography variant='body2' color='text.secondary'>
+                  <Typography variant="body2" color="text.secondary">
                     User Pool: {detailQuery.data.userPool.name}
                   </Typography>
-                  <Typography variant='body2' color='text.secondary'>
+                  <Typography variant="body2" color="text.secondary">
                     {detailQuery.data.description || 'No description.'}
                   </Typography>
                 </Stack>
 
                 <Divider />
 
-                <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography variant='subtitle1' sx={{ fontWeight: 700 }}>
+                <Stack
+                  direction="row"
+                  sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+                >
+                  <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
                     Redirect URIs
                   </Typography>
-                  <Button size='small' startIcon={<AddRoundedIcon />} onClick={() => setRedirectUriDialogOpen(true)}>
+                  <Button
+                    size="small"
+                    startIcon={<AddRoundedIcon />}
+                    onClick={() => setRedirectUriDialogOpen(true)}
+                  >
                     Add Redirect URI
                   </Button>
                 </Stack>
@@ -341,13 +374,17 @@ export function ApplicationsPage() {
                       key={item.id}
                       divider
                       secondaryAction={
-                        <Stack direction='row' spacing={1}>
+                        <Stack direction="row" spacing={1}>
                           {!item.isPrimary ? (
-                            <Button size='small' onClick={() => handlePromoteRedirectUri(item)}>
+                            <Button size="small" onClick={() => handlePromoteRedirectUri(item)}>
                               Set Primary
                             </Button>
                           ) : null}
-                          <Button size='small' color='error' onClick={() => handleDeleteRedirectUri(item)}>
+                          <Button
+                            size="small"
+                            color="error"
+                            onClick={() => handleDeleteRedirectUri(item)}
+                          >
                             Delete
                           </Button>
                         </Stack>
@@ -355,7 +392,9 @@ export function ApplicationsPage() {
                     >
                       <ListItemText
                         primary={item.redirectUri}
-                        secondary={item.isPrimary ? 'Primary redirect URI' : 'Secondary redirect URI'}
+                        secondary={
+                          item.isPrimary ? 'Primary redirect URI' : 'Secondary redirect URI'
+                        }
                       />
                     </ListItem>
                   ))}
@@ -363,10 +402,10 @@ export function ApplicationsPage() {
 
                 <Divider />
 
-                <Stack direction='row' spacing={1.5}>
+                <Stack direction="row" spacing={1.5}>
                   {detailQuery.data.applicationType === 'confidential' ? (
                     <Button
-                      variant='outlined'
+                      variant="outlined"
                       startIcon={<KeyRoundedIcon />}
                       onClick={() => setResetSecretDialogOpen(true)}
                     >
@@ -412,7 +451,12 @@ export function ApplicationsPage() {
         onSubmit={handleResetSecret}
       />
 
-      <Snackbar open={Boolean(toast)} autoHideDuration={2400} onClose={() => setToast(null)} message={toast} />
+      <Snackbar
+        open={Boolean(toast)}
+        autoHideDuration={2400}
+        onClose={() => setToast(null)}
+        message={toast}
+      />
     </Stack>
   )
 }

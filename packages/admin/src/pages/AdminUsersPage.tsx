@@ -127,14 +127,14 @@ export function AdminUsersPage() {
         sx={{ justifyContent: 'space-between' }}
       >
         <TextField
-          label='Search by email or nickname'
+          label="Search by email or nickname"
           value={keyword}
           onChange={(event) => setKeyword(event.target.value)}
           sx={{ minWidth: { xs: '100%', md: 320 } }}
         />
-        <Stack direction='row' spacing={1.5}>
+        <Stack direction="row" spacing={1.5}>
           <Button
-            variant='outlined'
+            variant="outlined"
             startIcon={<RefreshRoundedIcon />}
             onClick={() => listQuery.refetch()}
             sx={{ px: 2.25 }}
@@ -142,7 +142,7 @@ export function AdminUsersPage() {
             Refresh
           </Button>
           <Button
-            variant='contained'
+            variant="contained"
             startIcon={<AddRoundedIcon />}
             onClick={openCreateDialog}
             sx={{ px: 2.5 }}
@@ -152,7 +152,7 @@ export function AdminUsersPage() {
         </Stack>
       </Stack>
 
-      {errorMessage ? <Alert severity='error'>{errorMessage}</Alert> : null}
+      {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
 
       <AdminUsersTable
         items={listQuery.data?.items ?? []}
@@ -172,7 +172,12 @@ export function AdminUsersPage() {
         onSubmit={handleSubmit}
       />
 
-      <Snackbar open={Boolean(toast)} autoHideDuration={2400} onClose={() => setToast(null)} message={toast} />
+      <Snackbar
+        open={Boolean(toast)}
+        autoHideDuration={2400}
+        onClose={() => setToast(null)}
+        message={toast}
+      />
     </Stack>
   )
 }

@@ -17,8 +17,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { ProfileFieldFormDialog, type ProfileFieldFormValues } from '../components/user-pools/ProfileFieldFormDialog'
-import { UserPoolFormDialog, type UserPoolFormValues } from '../components/user-pools/UserPoolFormDialog'
+import {
+  ProfileFieldFormDialog,
+  type ProfileFieldFormValues,
+} from '../components/user-pools/ProfileFieldFormDialog'
+import {
+  UserPoolFormDialog,
+  type UserPoolFormValues,
+} from '../components/user-pools/UserPoolFormDialog'
 import { UserPoolsTable } from '../components/user-pools/UserPoolsTable'
 import { isApiError } from '../http'
 import {
@@ -77,7 +83,11 @@ export function UserPoolsPage() {
   const [editingPool, setEditingPool] = useState<UserPoolSummary | null>(null)
   const [editingField, setEditingField] = useState<ProfileField | null>(null)
 
-  const listQuery = useUserPoolsQuery({ keyword: keyword || undefined, page: 1, pageSize: 50 })
+  const listQuery = useUserPoolsQuery({
+    keyword: keyword || undefined,
+    page: 1,
+    pageSize: 50,
+  })
   const detailQuery = useUserPoolDetailQuery(selectedId)
   const createPoolMutation = useCreateUserPoolMutation()
   const updatePoolMutation = useUpdateUserPoolMutation()
@@ -189,16 +199,16 @@ export function UserPoolsPage() {
           allowSelfSignup: values.allowSelfSignup,
         },
       },
-        {
-          onSuccess: () => {
-            setToast('User pool updated.')
-            setPoolDialogOpen(false)
-          },
-          onError: () => {
-            setToast('Failed to update user pool.')
-          },
+      {
+        onSuccess: () => {
+          setToast('User pool updated.')
+          setPoolDialogOpen(false)
         },
-      )
+        onError: () => {
+          setToast('Failed to update user pool.')
+        },
+      },
+    )
   }
 
   const handleTogglePool = (item: UserPoolSummary) => {
@@ -285,24 +295,32 @@ export function UserPoolsPage() {
 
   return (
     <Stack spacing={3}>
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ justifyContent: 'space-between' }}>
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        spacing={2}
+        sx={{ justifyContent: 'space-between' }}
+      >
         <TextField
-          label='Search user pools'
+          label="Search user pools"
           value={keyword}
           onChange={(event) => setKeyword(event.target.value)}
           sx={{ minWidth: { xs: '100%', md: 320 } }}
         />
-        <Stack direction='row' spacing={1.5}>
-          <Button variant='outlined' startIcon={<RefreshRoundedIcon />} onClick={() => listQuery.refetch()}>
+        <Stack direction="row" spacing={1.5}>
+          <Button
+            variant="outlined"
+            startIcon={<RefreshRoundedIcon />}
+            onClick={() => listQuery.refetch()}
+          >
             Refresh
           </Button>
-          <Button variant='contained' startIcon={<AddRoundedIcon />} onClick={openCreatePool}>
+          <Button variant="contained" startIcon={<AddRoundedIcon />} onClick={openCreatePool}>
             New User Pool
           </Button>
         </Stack>
       </Stack>
 
-      {errorMessage ? <Alert severity='error'>{errorMessage}</Alert> : null}
+      {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
 
       <Stack direction={{ xs: 'column', xl: 'row' }} spacing={3} sx={{ alignItems: 'stretch' }}>
         <Box sx={{ flex: 1.2 }}>
@@ -322,34 +340,41 @@ export function UserPoolsPage() {
             {detailQuery.data ? (
               <Stack spacing={2.5}>
                 <Stack spacing={1}>
-                  <Typography variant='h6'>{detailQuery.data.name}</Typography>
-                  <Stack direction='row' spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
+                  <Typography variant="h6">{detailQuery.data.name}</Typography>
+                  <Stack direction="row" spacing={1} useFlexGap sx={{ flexWrap: 'wrap' }}>
                     <Chip
-                      size='small'
+                      size="small"
                       color={detailQuery.data.isActive ? 'success' : 'default'}
                       label={detailQuery.data.isActive ? 'Active' : 'Disabled'}
                     />
                     <Chip
-                      size='small'
-                      variant='outlined'
-                      label={detailQuery.data.allowSelfSignup ? 'Self Signup Enabled' : 'Self Signup Closed'}
+                      size="small"
+                      variant="outlined"
+                      label={
+                        detailQuery.data.allowSelfSignup
+                          ? 'Self Signup Enabled'
+                          : 'Self Signup Closed'
+                      }
                     />
                   </Stack>
-                  <Typography variant='body2' color='text.secondary'>
+                  <Typography variant="body2" color="text.secondary">
                     Code: {detailQuery.data.code}
                   </Typography>
-                  <Typography variant='body2' color='text.secondary'>
+                  <Typography variant="body2" color="text.secondary">
                     {detailQuery.data.description || 'No description.'}
                   </Typography>
                 </Stack>
 
                 <Divider />
 
-                <Stack direction='row' sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography variant='subtitle1' sx={{ fontWeight: 700 }}>
+                <Stack
+                  direction="row"
+                  sx={{ justifyContent: 'space-between', alignItems: 'center' }}
+                >
+                  <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
                     Profile Fields
                   </Typography>
-                  <Button size='small' startIcon={<AddRoundedIcon />} onClick={openCreateField}>
+                  <Button size="small" startIcon={<AddRoundedIcon />} onClick={openCreateField}>
                     Add Field
                   </Button>
                 </Stack>
@@ -360,11 +385,15 @@ export function UserPoolsPage() {
                       key={field.id}
                       divider
                       secondaryAction={
-                        <Stack direction='row' spacing={1}>
-                          <Button size='small' onClick={() => openEditField(field)}>
+                        <Stack direction="row" spacing={1}>
+                          <Button size="small" onClick={() => openEditField(field)}>
                             Edit
                           </Button>
-                          <Button size='small' color='error' onClick={() => handleDeleteField(field)}>
+                          <Button
+                            size="small"
+                            color="error"
+                            onClick={() => handleDeleteField(field)}
+                          >
                             Delete
                           </Button>
                         </Stack>
@@ -377,7 +406,7 @@ export function UserPoolsPage() {
                     </ListItem>
                   ))}
                   {detailQuery.data.profileFields.length === 0 ? (
-                    <Typography variant='body2' color='text.secondary'>
+                    <Typography variant="body2" color="text.secondary">
                       No profile fields configured yet.
                     </Typography>
                   ) : null}
@@ -385,7 +414,7 @@ export function UserPoolsPage() {
 
                 <Divider />
 
-                <Typography variant='subtitle1' sx={{ fontWeight: 700 }}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
                   Bound Applications
                 </Typography>
                 <List disablePadding>
@@ -398,7 +427,7 @@ export function UserPoolsPage() {
                     </ListItem>
                   ))}
                   {detailQuery.data.applications.length === 0 ? (
-                    <Typography variant='body2' color='text.secondary'>
+                    <Typography variant="body2" color="text.secondary">
                       No applications bound to this user pool.
                     </Typography>
                   ) : null}
@@ -435,7 +464,12 @@ export function UserPoolsPage() {
         onSubmit={handleSubmitField}
       />
 
-      <Snackbar open={Boolean(toast)} autoHideDuration={2400} onClose={() => setToast(null)} message={toast} />
+      <Snackbar
+        open={Boolean(toast)}
+        autoHideDuration={2400}
+        onClose={() => setToast(null)}
+        message={toast}
+      />
     </Stack>
   )
 }

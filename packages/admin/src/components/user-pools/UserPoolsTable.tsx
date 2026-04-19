@@ -46,7 +46,7 @@ export function UserPoolsTable({
             <TableCell>Status</TableCell>
             <TableCell>Self Signup</TableCell>
             <TableCell>Apps</TableCell>
-            <TableCell align='right'>Actions</TableCell>
+            <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -61,7 +61,7 @@ export function UserPoolsTable({
               <TableCell>
                 <Typography sx={{ fontWeight: 600 }}>{item.name}</Typography>
                 {item.description ? (
-                  <Typography variant='body2' color='text.secondary'>
+                  <Typography variant="body2" color="text.secondary">
                     {item.description}
                   </Typography>
                 ) : null}
@@ -69,20 +69,20 @@ export function UserPoolsTable({
               <TableCell>{item.code}</TableCell>
               <TableCell>
                 <Chip
-                  size='small'
+                  size="small"
                   color={item.isActive ? 'success' : 'default'}
                   label={item.isActive ? 'Active' : 'Disabled'}
                 />
               </TableCell>
               <TableCell>{item.allowSelfSignup ? 'Allowed' : 'Closed'}</TableCell>
               <TableCell>{item.applicationCount}</TableCell>
-              <TableCell align='right' onClick={(event) => event.stopPropagation()}>
-                <Stack direction='row' spacing={1} sx={{ justifyContent: 'flex-end' }}>
-                  <Button size='small' startIcon={<EditRoundedIcon />} onClick={() => onEdit(item)}>
+              <TableCell align="right" onClick={(event) => event.stopPropagation()}>
+                <Stack direction="row" spacing={1} sx={{ justifyContent: 'flex-end' }}>
+                  <Button size="small" startIcon={<EditRoundedIcon />} onClick={() => onEdit(item)}>
                     Edit
                   </Button>
                   <Button
-                    size='small'
+                    size="small"
                     startIcon={
                       item.isActive ? <PauseCircleRoundedIcon /> : <PlayCircleRoundedIcon />
                     }
@@ -92,8 +92,8 @@ export function UserPoolsTable({
                     {item.isActive ? 'Disable' : 'Enable'}
                   </Button>
                   <Button
-                    size='small'
-                    color='error'
+                    size="small"
+                    color="error"
                     startIcon={<DeleteRoundedIcon />}
                     disabled={busy}
                     onClick={() => onDelete(item)}

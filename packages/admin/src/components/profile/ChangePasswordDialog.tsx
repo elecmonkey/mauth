@@ -58,30 +58,35 @@ export function ChangePasswordDialog({ open, onClose }: ChangePasswordDialogProp
 
   return (
     <>
-      <Dialog open={open} onClose={mutation.isPending ? undefined : handleClose} fullWidth maxWidth='sm'>
+      <Dialog
+        open={open}
+        onClose={mutation.isPending ? undefined : handleClose}
+        fullWidth
+        maxWidth="sm"
+      >
         <DialogTitle>Change Password</DialogTitle>
         <DialogContent dividers sx={{ p: 3 }}>
           <Stack spacing={3}>
-            <Typography variant='body2' color='text.secondary'>
+            <Typography variant="body2" color="text.secondary">
               Updating your password will invalidate previously issued JWTs.
             </Typography>
 
-            {errorMessage ? <Alert severity='error'>{errorMessage}</Alert> : null}
+            {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
 
             <TextField
-              label='Current password'
-              type='password'
-              autoComplete='current-password'
+              label="Current password"
+              type="password"
+              autoComplete="current-password"
               value={currentPassword}
               onChange={(event) => setCurrentPassword(event.target.value)}
               fullWidth
             />
             <TextField
-              label='New password'
-              type='password'
+              label="New password"
+              type="password"
               value={newPassword}
               onChange={(event) => setNewPassword(event.target.value)}
-              helperText='At least 8 characters.'
+              helperText="At least 8 characters."
               fullWidth
             />
           </Stack>
@@ -90,7 +95,7 @@ export function ChangePasswordDialog({ open, onClose }: ChangePasswordDialogProp
           <Button onClick={handleClose} disabled={mutation.isPending}>
             Cancel
           </Button>
-          <Button variant='contained' onClick={handleSubmit} disabled={mutation.isPending}>
+          <Button variant="contained" onClick={handleSubmit} disabled={mutation.isPending}>
             {mutation.isPending ? 'Updating...' : 'Update password'}
           </Button>
         </DialogActions>
@@ -99,7 +104,7 @@ export function ChangePasswordDialog({ open, onClose }: ChangePasswordDialogProp
         open={toast}
         autoHideDuration={2400}
         onClose={() => setToast(false)}
-        message='Password updated successfully.'
+        message="Password updated successfully."
       />
     </>
   )

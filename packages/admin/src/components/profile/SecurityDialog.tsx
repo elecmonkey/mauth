@@ -60,10 +60,7 @@ export function SecurityDialog({ open, onClose }: SecurityDialogProps) {
       : 'Unable to disable two-factor authentication.'
     : null
 
-  const qrMarkup = useMemo(
-    () => (setupData ? { __html: setupData.qrSvg } : undefined),
-    [setupData],
-  )
+  const qrMarkup = useMemo(() => (setupData ? { __html: setupData.qrSvg } : undefined), [setupData])
 
   const handleClose = () => {
     if (isBusy) return
@@ -122,20 +119,23 @@ export function SecurityDialog({ open, onClose }: SecurityDialogProps) {
   }
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
+    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
       <DialogTitle>Security</DialogTitle>
       <DialogContent dividers sx={{ p: 3 }}>
         <Stack spacing={3}>
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
             spacing={1.5}
-            sx={{ alignItems: { xs: 'flex-start', sm: 'center' }, justifyContent: 'space-between' }}
+            sx={{
+              alignItems: { xs: 'flex-start', sm: 'center' },
+              justifyContent: 'space-between',
+            }}
           >
             <Box>
-              <Typography variant='h6' sx={{ fontWeight: 700 }}>
+              <Typography variant="h6" sx={{ fontWeight: 700 }}>
                 Two-Factor Authentication
               </Typography>
-              <Typography variant='body2' color='text.secondary'>
+              <Typography variant="body2" color="text.secondary">
                 Protect your admin account with a 6-digit code from an authenticator app.
               </Typography>
             </Box>
@@ -147,16 +147,16 @@ export function SecurityDialog({ open, onClose }: SecurityDialogProps) {
           </Stack>
 
           {statusQuery.isLoading ? (
-            <Stack direction='row' spacing={1.5} sx={{ alignItems: 'center' }}>
+            <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
               <CircularProgress size={20} />
-              <Typography variant='body2' color='text.secondary'>
+              <Typography variant="body2" color="text.secondary">
                 Loading security settings...
               </Typography>
             </Stack>
           ) : null}
 
           {statusQuery.error ? (
-            <Alert severity='error'>
+            <Alert severity="error">
               {isApiError(statusQuery.error)
                 ? statusQuery.error.message
                 : 'Unable to load security settings.'}
@@ -165,11 +165,11 @@ export function SecurityDialog({ open, onClose }: SecurityDialogProps) {
 
           {!statusQuery.isLoading ? (
             enabled ? (
-              <Alert severity='success'>
+              <Alert severity="success">
                 Two-factor authentication is active for this administrator account.
               </Alert>
             ) : (
-              <Alert severity='info'>
+              <Alert severity="info">
                 Once enabled, signing in will require both your password and a code from your
                 authenticator app.
               </Alert>
@@ -177,20 +177,20 @@ export function SecurityDialog({ open, onClose }: SecurityDialogProps) {
           ) : null}
 
           {!enabled && !statusQuery.isLoading ? (
-            <Stack direction='row' spacing={1.5}>
+            <Stack direction="row" spacing={1.5}>
               <Button
-                variant='contained'
+                variant="contained"
                 onClick={handleStartSetup}
                 disabled={setupMutation.isPending}
                 startIcon={
-                  setupMutation.isPending ? <CircularProgress color='inherit' size={18} /> : null
+                  setupMutation.isPending ? <CircularProgress color="inherit" size={18} /> : null
                 }
               >
                 {setupMutation.isPending ? 'Preparing...' : 'Set up authenticator'}
               </Button>
               {setupData ? (
                 <Button
-                  variant='outlined'
+                  variant="outlined"
                   onClick={() => setSetupData(null)}
                   disabled={confirmMutation.isPending}
                 >
@@ -200,15 +200,15 @@ export function SecurityDialog({ open, onClose }: SecurityDialogProps) {
             </Stack>
           ) : null}
 
-          {setupErrorMessage ? <Alert severity='error'>{setupErrorMessage}</Alert> : null}
+          {setupErrorMessage ? <Alert severity="error">{setupErrorMessage}</Alert> : null}
 
           {!enabled && setupData ? (
             <Stack spacing={3} sx={{ borderTop: '1px solid', borderColor: 'divider', pt: 3 }}>
               <Box>
-                <Typography variant='subtitle1' sx={{ fontWeight: 700, mb: 0.5 }}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.5 }}>
                   Scan QR Code
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant="body2" color="text.secondary">
                   Scan this QR code with Google Authenticator, 1Password, or another TOTP-compatible
                   app, then enter the 6-digit code below.
                 </Typography>
@@ -232,15 +232,15 @@ export function SecurityDialog({ open, onClose }: SecurityDialogProps) {
               />
 
               <TextField
-                label='Setup secret'
+                label="Setup secret"
                 value={setupData.secret}
                 fullWidth
                 slotProps={{ htmlInput: { readOnly: true } }}
-                helperText='Use this secret if your authenticator app cannot scan the QR code.'
+                helperText="Use this secret if your authenticator app cannot scan the QR code."
               />
 
               <TextField
-                label='otpauth URI'
+                label="otpauth URI"
                 value={setupData.otpauthUri}
                 fullWidth
                 multiline
@@ -248,24 +248,26 @@ export function SecurityDialog({ open, onClose }: SecurityDialogProps) {
                 slotProps={{ htmlInput: { readOnly: true } }}
               />
 
-              {confirmErrorMessage ? <Alert severity='error'>{confirmErrorMessage}</Alert> : null}
+              {confirmErrorMessage ? <Alert severity="error">{confirmErrorMessage}</Alert> : null}
 
               <Stack spacing={2}>
                 <TextField
-                  label='Authenticator code'
-                  autoComplete='one-time-code'
+                  label="Authenticator code"
+                  autoComplete="one-time-code"
                   value={confirmCode}
                   onChange={(event) => setConfirmCode(event.target.value)}
-                  inputMode='numeric'
-                  placeholder='123456'
-                  helperText='Enter the current 6-digit code to finish enabling 2FA.'
+                  inputMode="numeric"
+                  placeholder="123456"
+                  helperText="Enter the current 6-digit code to finish enabling 2FA."
                 />
                 <Button
-                  variant='contained'
+                  variant="contained"
                   onClick={handleConfirmSetup}
                   disabled={confirmMutation.isPending}
                   startIcon={
-                    confirmMutation.isPending ? <CircularProgress color='inherit' size={18} /> : null
+                    confirmMutation.isPending ? (
+                      <CircularProgress color="inherit" size={18} />
+                    ) : null
                   }
                   sx={{ alignSelf: 'flex-start', px: 3 }}
                 >
@@ -278,39 +280,39 @@ export function SecurityDialog({ open, onClose }: SecurityDialogProps) {
           {enabled && !statusQuery.isLoading ? (
             <Stack spacing={3} sx={{ borderTop: '1px solid', borderColor: 'divider', pt: 3 }}>
               <Box>
-                <Typography variant='subtitle1' sx={{ fontWeight: 700, mb: 0.5 }}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.5 }}>
                   Disable Two-Factor Authentication
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant="body2" color="text.secondary">
                   To disable 2FA, confirm your current password and provide a valid 6-digit
                   authenticator code.
                 </Typography>
               </Box>
 
-              {disableErrorMessage ? <Alert severity='error'>{disableErrorMessage}</Alert> : null}
+              {disableErrorMessage ? <Alert severity="error">{disableErrorMessage}</Alert> : null}
 
               <TextField
-                label='Current password'
-                type='password'
-                autoComplete='current-password'
+                label="Current password"
+                type="password"
+                autoComplete="current-password"
                 value={currentPassword}
                 onChange={(event) => setCurrentPassword(event.target.value)}
               />
               <TextField
-                label='Authenticator code'
-                autoComplete='one-time-code'
+                label="Authenticator code"
+                autoComplete="one-time-code"
                 value={disableCode}
                 onChange={(event) => setDisableCode(event.target.value)}
-                inputMode='numeric'
-                placeholder='123456'
+                inputMode="numeric"
+                placeholder="123456"
               />
               <Button
-                variant='outlined'
-                color='error'
+                variant="outlined"
+                color="error"
                 onClick={handleDisable}
                 disabled={disableMutation.isPending}
                 startIcon={
-                  disableMutation.isPending ? <CircularProgress color='inherit' size={18} /> : null
+                  disableMutation.isPending ? <CircularProgress color="inherit" size={18} /> : null
                 }
                 sx={{ alignSelf: 'flex-start', px: 3 }}
               >

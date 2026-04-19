@@ -160,7 +160,9 @@ export function useUpdateUserPoolMutation() {
     onSuccess: async (_data, variables) => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: adminQueryKeys.all }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.userPoolDetail(variables.id) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.userPoolDetail(variables.id),
+        }),
       ])
     },
   })
@@ -173,7 +175,9 @@ export function useEnableUserPoolMutation() {
     onSuccess: async (_data, id) => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: adminQueryKeys.all }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.userPoolDetail(id) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.userPoolDetail(id),
+        }),
       ])
     },
   })
@@ -186,7 +190,9 @@ export function useDisableUserPoolMutation() {
     onSuccess: async (_data, id) => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: adminQueryKeys.all }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.userPoolDetail(id) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.userPoolDetail(id),
+        }),
       ])
     },
   })
@@ -205,12 +211,21 @@ export function useDeleteUserPoolMutation() {
 export function useCreateProfileFieldMutation() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: ({ userPoolId, payload }: { userPoolId: string; payload: CreateProfileFieldPayload }) =>
-      createProfileField(userPoolId, payload),
+    mutationFn: ({
+      userPoolId,
+      payload,
+    }: {
+      userPoolId: string
+      payload: CreateProfileFieldPayload
+    }) => createProfileField(userPoolId, payload),
     onSuccess: async (_data, variables) => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.userPoolDetail(variables.userPoolId) }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.profileFields(variables.userPoolId) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.userPoolDetail(variables.userPoolId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.profileFields(variables.userPoolId),
+        }),
         queryClient.invalidateQueries({ queryKey: adminQueryKeys.all }),
       ])
     },
@@ -231,8 +246,12 @@ export function useUpdateProfileFieldMutation() {
     }) => updateProfileField(userPoolId, fieldId, payload),
     onSuccess: async (_data, variables) => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.userPoolDetail(variables.userPoolId) }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.profileFields(variables.userPoolId) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.userPoolDetail(variables.userPoolId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.profileFields(variables.userPoolId),
+        }),
       ])
     },
   })
@@ -245,8 +264,12 @@ export function useDeleteProfileFieldMutation() {
       deleteProfileField(userPoolId, fieldId),
     onSuccess: async (_data, variables) => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.userPoolDetail(variables.userPoolId) }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.profileFields(variables.userPoolId) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.userPoolDetail(variables.userPoolId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.profileFields(variables.userPoolId),
+        }),
       ])
     },
   })
@@ -293,7 +316,9 @@ export function useUpdateApplicationMutation() {
     onSuccess: async (_data, variables) => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: adminQueryKeys.all }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.applicationDetail(variables.id) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.applicationDetail(variables.id),
+        }),
       ])
     },
   })
@@ -306,7 +331,9 @@ export function useEnableApplicationMutation() {
     onSuccess: async (_data, id) => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: adminQueryKeys.all }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.applicationDetail(id) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.applicationDetail(id),
+        }),
       ])
     },
   })
@@ -319,7 +346,9 @@ export function useDisableApplicationMutation() {
     onSuccess: async (_data, id) => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: adminQueryKeys.all }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.applicationDetail(id) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.applicationDetail(id),
+        }),
       ])
     },
   })
@@ -341,7 +370,9 @@ export function useResetApplicationSecretMutation() {
     mutationFn: ({ id, payload }: { id: string; payload: ResetApplicationSecretPayload }) =>
       resetApplicationSecret(id, payload),
     onSuccess: async (_data, variables) => {
-      await queryClient.invalidateQueries({ queryKey: adminQueryKeys.applicationDetail(variables.id) })
+      await queryClient.invalidateQueries({
+        queryKey: adminQueryKeys.applicationDetail(variables.id),
+      })
     },
   })
 }
@@ -358,8 +389,12 @@ export function useCreateRedirectUriMutation() {
     }) => createRedirectUri(applicationId, payload),
     onSuccess: async (_data, variables) => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.applicationDetail(variables.applicationId) }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.redirectUris(variables.applicationId) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.applicationDetail(variables.applicationId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.redirectUris(variables.applicationId),
+        }),
         queryClient.invalidateQueries({ queryKey: adminQueryKeys.all }),
       ])
     },
@@ -380,8 +415,12 @@ export function useUpdateRedirectUriMutation() {
     }) => updateRedirectUri(applicationId, redirectUriId, payload),
     onSuccess: async (_data, variables) => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.applicationDetail(variables.applicationId) }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.redirectUris(variables.applicationId) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.applicationDetail(variables.applicationId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.redirectUris(variables.applicationId),
+        }),
       ])
     },
   })
@@ -390,12 +429,21 @@ export function useUpdateRedirectUriMutation() {
 export function useDeleteRedirectUriMutation() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: ({ applicationId, redirectUriId }: { applicationId: string; redirectUriId: string }) =>
-      deleteRedirectUri(applicationId, redirectUriId),
+    mutationFn: ({
+      applicationId,
+      redirectUriId,
+    }: {
+      applicationId: string
+      redirectUriId: string
+    }) => deleteRedirectUri(applicationId, redirectUriId),
     onSuccess: async (_data, variables) => {
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.applicationDetail(variables.applicationId) }),
-        queryClient.invalidateQueries({ queryKey: adminQueryKeys.redirectUris(variables.applicationId) }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.applicationDetail(variables.applicationId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: adminQueryKeys.redirectUris(variables.applicationId),
+        }),
       ])
     },
   })
@@ -425,7 +473,9 @@ export function useConfirmMyTotpMutation() {
   return useMutation({
     mutationFn: (payload: ConfirmTotpPayload) => confirmMyTotp(payload),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: adminQueryKeys.totpStatus() })
+      await queryClient.invalidateQueries({
+        queryKey: adminQueryKeys.totpStatus(),
+      })
     },
   })
 }
@@ -435,7 +485,9 @@ export function useDisableMyTotpMutation() {
   return useMutation({
     mutationFn: (payload: DisableTotpPayload) => disableMyTotp(payload),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: adminQueryKeys.totpStatus() })
+      await queryClient.invalidateQueries({
+        queryKey: adminQueryKeys.totpStatus(),
+      })
     },
   })
 }

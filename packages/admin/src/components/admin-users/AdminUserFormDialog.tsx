@@ -38,31 +38,27 @@ export function AdminUserFormDialog({
   const [values, setValues] = useState(initialValues)
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth='sm'>
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{mode === 'create' ? 'Create Admin User' : 'Edit Admin User'}</DialogTitle>
       <DialogContent sx={{ px: 3, pt: 1.5, pb: 0 }}>
         <Stack spacing={2} sx={{ mt: 1 }}>
           <TextField
-            label='Email'
+            label="Email"
             disabled={mode === 'edit'}
             value={values.email}
             onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
           />
           <TextField
-            label='Nickname'
+            label="Nickname"
             value={values.nickname}
-            onChange={(event) =>
-              setValues((prev) => ({ ...prev, nickname: event.target.value }))
-            }
+            onChange={(event) => setValues((prev) => ({ ...prev, nickname: event.target.value }))}
           />
           {mode === 'create' ? (
             <TextField
-              label='Password'
-              type='password'
+              label="Password"
+              type="password"
               value={values.password}
-              onChange={(event) =>
-                setValues((prev) => ({ ...prev, password: event.target.value }))
-              }
+              onChange={(event) => setValues((prev) => ({ ...prev, password: event.target.value }))}
             />
           ) : null}
           <FormControlLabel
@@ -70,11 +66,14 @@ export function AdminUserFormDialog({
               <Switch
                 checked={values.isActive}
                 onChange={(event) =>
-                  setValues((prev) => ({ ...prev, isActive: event.target.checked }))
+                  setValues((prev) => ({
+                    ...prev,
+                    isActive: event.target.checked,
+                  }))
                 }
               />
             }
-            label='Active'
+            label="Active"
           />
         </Stack>
       </DialogContent>
@@ -82,7 +81,7 @@ export function AdminUserFormDialog({
         <Button onClick={onClose}>Cancel</Button>
         <Button
           onClick={() => onSubmit(values)}
-          variant='contained'
+          variant="contained"
           disabled={submitting}
           sx={{ px: 2.25 }}
         >

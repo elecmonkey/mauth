@@ -39,7 +39,7 @@ export function AdminUsersTable({
             <TableCell>Status</TableCell>
             <TableCell>2FA</TableCell>
             <TableCell>Last Login</TableCell>
-            <TableCell align='right'>Actions</TableCell>
+            <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -54,10 +54,10 @@ export function AdminUsersTable({
               <TableCell>
                 {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString() : '-'}
               </TableCell>
-              <TableCell align='right'>
-                <Stack direction='row' spacing={1} sx={{ justifyContent: 'flex-end' }}>
+              <TableCell align="right">
+                <Stack direction="row" spacing={1} sx={{ justifyContent: 'flex-end' }}>
                   <Button
-                    size='small'
+                    size="small"
                     startIcon={<EditRoundedIcon />}
                     onClick={() => onEdit(user)}
                     sx={{ px: 1.5, py: 0.625 }}
@@ -65,8 +65,8 @@ export function AdminUsersTable({
                     Edit
                   </Button>
                   <Button
-                    size='small'
-                    color='error'
+                    size="small"
+                    color="error"
                     startIcon={<DeleteRoundedIcon />}
                     disabled={currentUserId === user.id || deleting}
                     onClick={() => onDelete(user.id)}

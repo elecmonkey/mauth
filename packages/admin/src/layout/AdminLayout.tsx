@@ -34,7 +34,11 @@ const drawerWidth = 248
 
 const navItems = [
   { label: 'Dashboard', icon: <DashboardRoundedIcon />, path: '/dashboard' },
-  { label: 'Admin Users', icon: <PeopleAltRoundedIcon />, path: '/admin-users' },
+  {
+    label: 'Admin Users',
+    icon: <PeopleAltRoundedIcon />,
+    path: '/admin-users',
+  },
   { label: 'User Pools', icon: <HubRoundedIcon />, path: '/user-pools' },
   { label: 'Applications', icon: <AppsRoundedIcon />, path: '/applications' },
 ]
@@ -97,9 +101,15 @@ export function AdminLayout() {
   }
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: 'background.default' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        minHeight: '100vh',
+        backgroundColor: 'background.default',
+      }}
+    >
       <Drawer
-        variant='permanent'
+        variant="permanent"
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -111,15 +121,15 @@ export function AdminLayout() {
         }}
       >
         <Toolbar>
-          <Stack direction='row' spacing={1.5} sx={{ alignItems: 'center' }}>
+          <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
             <Avatar sx={{ bgcolor: 'primary.main' }}>
-              <ShieldRoundedIcon fontSize='small' />
+              <ShieldRoundedIcon fontSize="small" />
             </Avatar>
             <Box>
-              <Typography variant='subtitle1' sx={{ fontWeight: 700 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
                 MAuth Admin
               </Typography>
-              <Typography variant='caption' color='text.secondary'>
+              <Typography variant="caption" color="text.secondary">
                 Backoffice Console
               </Typography>
             </Box>
@@ -144,22 +154,26 @@ export function AdminLayout() {
 
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <AppBar
-          position='sticky'
-          color='inherit'
+          position="sticky"
+          color="inherit"
           elevation={0}
-          sx={{ borderBottom: 1, borderColor: 'divider', backgroundColor: 'background.paper' }}
+          sx={{
+            borderBottom: 1,
+            borderColor: 'divider',
+            backgroundColor: 'background.paper',
+          }}
         >
           <Toolbar sx={{ justifyContent: 'space-between' }}>
             <Box>
-              <Typography variant='h6' sx={{ fontWeight: 700 }}>
+              <Typography variant="h6" sx={{ fontWeight: 700 }}>
                 {currentPage.title}
               </Typography>
-              <Typography variant='body2' color='text.secondary'>
+              <Typography variant="body2" color="text.secondary">
                 {currentPage.description}
               </Typography>
             </Box>
             <Button
-              color='inherit'
+              color="inherit"
               onClick={handleOpenUserMenu}
               endIcon={<KeyboardArrowDownRoundedIcon />}
               sx={{
@@ -170,13 +184,13 @@ export function AdminLayout() {
                 minWidth: 0,
               }}
             >
-              <Stack direction='row' spacing={1.5} sx={{ alignItems: 'center' }}>
+              <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
                 <Avatar sx={{ width: 34, height: 34, bgcolor: 'primary.main' }}>
                   {(currentUser?.nickname ?? 'A').slice(0, 1).toUpperCase()}
                 </Avatar>
                 <Box sx={{ textAlign: 'left' }}>
-                  <Typography variant='subtitle2'>{currentUser?.nickname ?? 'Admin'}</Typography>
-                  <Typography variant='caption' color='text.secondary'>
+                  <Typography variant="subtitle2">{currentUser?.nickname ?? 'Admin'}</Typography>
+                  <Typography variant="caption" color="text.secondary">
                     {currentUser?.email ?? 'Unknown'}
                   </Typography>
                 </Box>
@@ -191,28 +205,28 @@ export function AdminLayout() {
             >
               <MenuItem onClick={handleOpenSecurity}>
                 <ListItemIcon sx={{ minWidth: 36 }}>
-                  <SecurityRoundedIcon fontSize='small' />
+                  <SecurityRoundedIcon fontSize="small" />
                 </ListItemIcon>
-                <ListItemText primary='Security' secondary='Two-factor authentication' />
+                <ListItemText primary="Security" secondary="Two-factor authentication" />
               </MenuItem>
               <MenuItem onClick={handleOpenChangePassword}>
                 <ListItemIcon sx={{ minWidth: 36 }}>
-                  <LockResetRoundedIcon fontSize='small' />
+                  <LockResetRoundedIcon fontSize="small" />
                 </ListItemIcon>
-                <ListItemText primary='Change Password' />
+                <ListItemText primary="Change Password" />
               </MenuItem>
               <Divider />
               <MenuItem onClick={handleLogout}>
                 <ListItemIcon sx={{ minWidth: 36 }}>
-                  <LogoutRoundedIcon fontSize='small' />
+                  <LogoutRoundedIcon fontSize="small" />
                 </ListItemIcon>
-                <ListItemText primary='Sign out' />
+                <ListItemText primary="Sign out" />
               </MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>
 
-        <Box component='main' sx={{ flex: 1, p: 3 }}>
+        <Box component="main" sx={{ flex: 1, p: 3 }}>
           <Outlet />
         </Box>
       </Box>
