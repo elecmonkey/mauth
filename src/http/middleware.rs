@@ -38,16 +38,14 @@ pub fn apply_common_layers(router: Router<AppState>) -> Router<AppState> {
                         )
                     })
                     .on_request(())
-                    .on_response(
-                        |response: &Response<_>, latency: Duration, span: &Span| {
-                            info!(
-                                parent: span,
-                                status = response.status().as_u16(),
-                                latency_ms = latency.as_millis(),
-                                "request completed"
-                            );
-                        },
-                    ),
+                    .on_response(|response: &Response<_>, latency: Duration, span: &Span| {
+                        info!(
+                            parent: span,
+                            status = response.status().as_u16(),
+                            latency_ms = latency.as_millis(),
+                            "request completed"
+                        );
+                    }),
             )
             .layer(CompressionLayer::new())
             .layer(CorsLayer::permissive()),

@@ -1,8 +1,6 @@
 use anyhow::Context;
 use chrono::Utc;
-use jsonwebtoken::{
-    Algorithm, DecodingKey, EncodingKey, Header, Validation, decode, encode,
-};
+use jsonwebtoken::{Algorithm, DecodingKey, EncodingKey, Header, Validation, decode, encode};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
@@ -71,10 +69,7 @@ pub fn issue_admin_login_challenge(
     })
 }
 
-pub fn encode_admin_jwt(
-    auth_state: &AuthState,
-    claims: &AdminJwtClaims,
-) -> anyhow::Result<String> {
+pub fn encode_admin_jwt(auth_state: &AuthState, claims: &AdminJwtClaims) -> anyhow::Result<String> {
     encode(
         &Header::new(Algorithm::HS256),
         claims,

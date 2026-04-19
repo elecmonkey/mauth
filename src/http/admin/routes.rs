@@ -1,4 +1,7 @@
-use axum::{Router, routing::{get, patch, post}};
+use axum::{
+    Router,
+    routing::{get, patch, post},
+};
 
 use crate::state::AppState;
 
@@ -19,4 +22,62 @@ pub fn routes() -> Router<AppState> {
         .route("/me/totp/setup", post(super::handlers::setup_my_totp))
         .route("/me/totp/confirm", post(super::handlers::confirm_my_totp))
         .route("/me/totp/disable", post(super::handlers::disable_my_totp))
+        .route(
+            "/user-pools",
+            get(super::handlers::list_user_pools).post(super::handlers::create_user_pool),
+        )
+        .route(
+            "/user-pools/{user_pool_id}",
+            get(super::handlers::get_user_pool)
+                .patch(super::handlers::update_user_pool)
+                .delete(super::handlers::delete_user_pool),
+        )
+        .route(
+            "/user-pools/{user_pool_id}/enable",
+            post(super::handlers::enable_user_pool),
+        )
+        .route(
+            "/user-pools/{user_pool_id}/disable",
+            post(super::handlers::disable_user_pool),
+        )
+        .route(
+            "/user-pools/{user_pool_id}/profile-fields",
+            get(super::handlers::list_profile_fields).post(super::handlers::create_profile_field),
+        )
+        .route(
+            "/user-pools/{user_pool_id}/profile-fields/{field_id}",
+            patch(super::handlers::update_profile_field)
+                .delete(super::handlers::delete_profile_field),
+        )
+        .route(
+            "/applications",
+            get(super::handlers::list_applications).post(super::handlers::create_application),
+        )
+        .route(
+            "/applications/{application_id}",
+            get(super::handlers::get_application)
+                .patch(super::handlers::update_application)
+                .delete(super::handlers::delete_application),
+        )
+        .route(
+            "/applications/{application_id}/enable",
+            post(super::handlers::enable_application),
+        )
+        .route(
+            "/applications/{application_id}/disable",
+            post(super::handlers::disable_application),
+        )
+        .route(
+            "/applications/{application_id}/reset-secret",
+            post(super::handlers::reset_application_secret),
+        )
+        .route(
+            "/applications/{application_id}/redirect-uris",
+            get(super::handlers::list_redirect_uris).post(super::handlers::create_redirect_uri),
+        )
+        .route(
+            "/applications/{application_id}/redirect-uris/{redirect_uri_id}",
+            patch(super::handlers::update_redirect_uri)
+                .delete(super::handlers::delete_redirect_uri),
+        )
 }

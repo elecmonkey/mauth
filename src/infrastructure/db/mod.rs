@@ -29,6 +29,10 @@ pub async fn connect_database(config: &Config) -> anyhow::Result<DatabaseConnect
 pub async fn sync_schema(db: &DatabaseConnection) -> anyhow::Result<()> {
     db.get_schema_builder()
         .register(entity::admin_user::Entity)
+        .register(entity::user_pool::Entity)
+        .register(entity::user_pool_profile_field::Entity)
+        .register(entity::application::Entity)
+        .register(entity::application_redirect_uri::Entity)
         .sync(db)
         .await
         .context("failed to synchronize schema from entities")?;

@@ -31,8 +31,7 @@ impl Config {
             .unwrap_or_else(|_| "mauth=debug,tower_http=info,axum::rejection=trace".to_string());
         let database_url = required_env("DATABASE_URL")?;
         let database_max_connections = parse_env("DATABASE_MAX_CONNECTIONS", 20_u32)?;
-        let database_connect_timeout_secs =
-            parse_env("DATABASE_CONNECT_TIMEOUT_SECS", 8_u64)?;
+        let database_connect_timeout_secs = parse_env("DATABASE_CONNECT_TIMEOUT_SECS", 8_u64)?;
         let database_sqlx_logging = parse_bool_env("DATABASE_SQLX_LOGGING", false)?;
         let auth_issuer = env::var("AUTH_ISSUER").unwrap_or_else(|_| app_name.clone());
         let admin_jwt_secret = required_env("ADMIN_JWT_SECRET")?;

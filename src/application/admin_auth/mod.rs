@@ -1,7 +1,5 @@
 use anyhow::{Context, anyhow};
-use sea_orm::{
-    ActiveModelTrait, DatabaseConnection, EntityTrait, IntoActiveModel, Set,
-};
+use sea_orm::{ActiveModelTrait, DatabaseConnection, EntityTrait, IntoActiveModel, Set};
 use uuid::Uuid;
 
 use crate::{

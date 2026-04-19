@@ -6,12 +6,7 @@ use chrono::Utc;
 use sea_orm::EntityTrait;
 use uuid::Uuid;
 
-use crate::{
-    entity::admin_user,
-    error::AppError,
-    infrastructure::auth,
-    state::AppState,
-};
+use crate::{entity::admin_user, error::AppError, infrastructure::auth, state::AppState};
 
 pub struct AdminSession {
     pub admin_id: Uuid,

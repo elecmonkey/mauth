@@ -14,7 +14,11 @@ pub struct TotpSetup {
     pub qr_svg: String,
 }
 
-fn build_totp(secret: Secret, issuer: Option<String>, account_name: String) -> anyhow::Result<TOTP> {
+fn build_totp(
+    secret: Secret,
+    issuer: Option<String>,
+    account_name: String,
+) -> anyhow::Result<TOTP> {
     TOTP::new(
         Algorithm::SHA1,
         TOTP_DIGITS,

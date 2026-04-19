@@ -52,9 +52,7 @@ pub async fn run_create_admin(
     Ok(())
 }
 
-fn parse_create_admin_args(
-    mut args: impl Iterator<Item = String>,
-) -> anyhow::Result<Command> {
+fn parse_create_admin_args(mut args: impl Iterator<Item = String>) -> anyhow::Result<Command> {
     let mut email = None;
     let mut nickname = None;
     let mut password = None;
@@ -91,10 +89,14 @@ fn next_value(args: &mut impl Iterator<Item = String>, flag: &str) -> anyhow::Re
 fn print_help() {
     eprintln!("Usage:");
     eprintln!("  cargo run");
-    eprintln!("  cargo run -- create-admin --email <email> --nickname <nickname> --password <password>");
+    eprintln!(
+        "  cargo run -- create-admin --email <email> --nickname <nickname> --password <password>"
+    );
 }
 
 fn print_create_admin_help() {
     eprintln!("Usage:");
-    eprintln!("  cargo run -- create-admin --email <email> --nickname <nickname> --password <password>");
+    eprintln!(
+        "  cargo run -- create-admin --email <email> --nickname <nickname> --password <password>"
+    );
 }

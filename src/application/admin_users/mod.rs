@@ -5,8 +5,8 @@ use argon2::{
 };
 use chrono::Utc;
 use sea_orm::{
-    ActiveModelTrait, Condition, DatabaseConnection, EntityTrait, IntoActiveModel,
-    PaginatorTrait, QueryFilter, QueryOrder, Set,
+    ActiveModelTrait, Condition, DatabaseConnection, EntityTrait, IntoActiveModel, PaginatorTrait,
+    QueryFilter, QueryOrder, Set,
 };
 use uuid::Uuid;
 
@@ -106,7 +106,11 @@ pub async fn list_admin_users(
     db: &DatabaseConnection,
     input: ListAdminUsersInput,
 ) -> anyhow::Result<ListAdminUsersResult> {
-    let keyword = input.keyword.as_deref().map(str::trim).filter(|it| !it.is_empty());
+    let keyword = input
+        .keyword
+        .as_deref()
+        .map(str::trim)
+        .filter(|it| !it.is_empty());
     let page = input.page.max(1);
     let page_size = input.page_size.clamp(1, 100);
     let mut query = admin_user::Entity::find().order_by_desc(admin_user::COLUMN.created_at);
@@ -114,7 +118,11 @@ pub async fn list_admin_users(
     if let Some(keyword) = keyword {
         query = query.filter(
             Condition::any()
-                .add(admin_user::COLUMN.email.contains(keyword.to_ascii_lowercase()))
+                .add(
+                    admin_user::COLUMN
+                        .email
+                        .contains(keyword.to_ascii_lowercase()),
+                )
                 .add(admin_user::COLUMN.nickname.contains(keyword)),
         );
     }
@@ -263,7 +271,7 @@ fn normalize_password(input: &str) -> anyhow::Result<String> {
     Ok(password.to_string())
 }
 
-fn hash_password(password: &str) -> anyhow::Result<String> {
+pub(crate) fn hash_password(password: &str) -> anyhow::Result<String> {
     let salt = SaltString::encode_b64(&Uuid::new_v4().into_bytes())
         .map_err(|err| anyhow::anyhow!("failed to generate password salt: {err}"))?;
 
@@ -274,8 +282,8 @@ fn hash_password(password: &str) -> anyhow::Result<String> {
 }
 
 pub fn verify_password(password: &str, password_hash: &str) -> anyhow::Result<bool> {
-    let parsed_hash =
-        PasswordHash::new(password_hash).map_err(|err| anyhow::anyhow!("invalid password hash: {err}"))?;
+    let parsed_hash = PasswordHash::new(password_hash)
+        .map_err(|err| anyhow::anyhow!("invalid password hash: {err}"))?;
 
     Ok(Argon2::default()
         .verify_password(password.as_bytes(), &parsed_hash)
