@@ -4,7 +4,12 @@
   "scripts": {
     "dev:admin": "pnpm --filter @mauth/admin dev",
     "build:admin": "pnpm --filter @mauth/admin build",
-    "lint:admin": "pnpm --filter @mauth/admin lint"
+    "lint:admin": "pnpm --filter @mauth/admin lint",
+    "type-check:admin": "pnpm --filter @mauth/admin type-check",
+    "dev:login": "pnpm --filter @mauth/login dev",
+    "build:login": "pnpm --filter @mauth/login build",
+    "lint:login": "pnpm --filter @mauth/login lint",
+    "type-check:login": "pnpm --filter @mauth/login check"
   },
   "packageManager": "pnpm@10.33.0"
 }

@@ -1,10 +1,27 @@
 # AGENTS.md
 
-## Frontend
+## Login Frontend
 
-### Core Direction
+`packages/login` is a separate login-side frontend.
 
-The frontend of this repository must follow a layered architecture:
+### Tech Stack
+
+- Svelte 5
+- runes mode
+- TypeScript
+- Vite
+
+### Rules
+
+- do not downgrade to legacy syntax for Svelte 4
+- in runes mode, prefer modern event attributes such as `onclick`
+- use runes such as `$state`, `$derived`, and `$effect`
+
+## Admin Frontend
+
+`packages/admin` is the backoffice admin frontend application of this repository.
+
+### Tech Stack
 
 - React
 - React Router
