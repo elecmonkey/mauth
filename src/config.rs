@@ -14,6 +14,8 @@ pub struct Config {
     pub database_connect_timeout_secs: u64,
     pub database_sqlx_logging: bool,
     pub auth_issuer: String,
+    pub admin_jwt_secret: String,
+    pub admin_jwt_expires_days: i64,
 }
 
 impl Config {
@@ -32,6 +34,8 @@ impl Config {
             parse_env("DATABASE_CONNECT_TIMEOUT_SECS", 8_u64)?;
         let database_sqlx_logging = parse_bool_env("DATABASE_SQLX_LOGGING", false)?;
         let auth_issuer = env::var("AUTH_ISSUER").unwrap_or_else(|_| app_name.clone());
+        let admin_jwt_secret = required_env("ADMIN_JWT_SECRET")?;
+        let admin_jwt_expires_days = parse_env("ADMIN_JWT_EXPIRES_DAYS", 7_i64)?;
 
         Ok(Self {
             app_name,
@@ -42,6 +46,8 @@ impl Config {
             database_connect_timeout_secs,
             database_sqlx_logging,
             auth_issuer,
+            admin_jwt_secret,
+            admin_jwt_expires_days,
         })
     }
 

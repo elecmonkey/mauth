@@ -41,6 +41,7 @@ pub async fn run_create_admin(
             email: args.email,
             nickname: args.nickname,
             password: args.password,
+            is_active: true,
         },
     )
     .await?;

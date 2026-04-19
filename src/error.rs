@@ -12,6 +12,12 @@ pub enum AppError {
     NotFound,
     #[error("validation failed: {0}")]
     Validation(String),
+    #[error("unauthorized: {0}")]
+    Unauthorized(String),
+    #[error("forbidden: {0}")]
+    Forbidden(String),
+    #[error("conflict: {0}")]
+    Conflict(String),
     #[error("internal server error")]
     Internal,
 }
@@ -26,6 +32,9 @@ impl IntoResponse for AppError {
         let status = match self {
             Self::NotFound => StatusCode::NOT_FOUND,
             Self::Validation(_) => StatusCode::BAD_REQUEST,
+            Self::Unauthorized(_) => StatusCode::UNAUTHORIZED,
+            Self::Forbidden(_) => StatusCode::FORBIDDEN,
+            Self::Conflict(_) => StatusCode::CONFLICT,
             Self::Internal => StatusCode::INTERNAL_SERVER_ERROR,
         };
 

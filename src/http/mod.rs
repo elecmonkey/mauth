@@ -1,3 +1,4 @@
+pub mod admin;
 pub mod applications;
 pub mod auth;
 pub mod health;
@@ -12,6 +13,7 @@ use crate::{error::AppError, state::AppState};
 
 pub fn routes() -> Router<AppState> {
     Router::new()
+        .nest("/admin", admin::routes())
         .nest("/health", health::routes())
         .nest("/auth", auth::routes())
         .nest("/applications", applications::routes())
