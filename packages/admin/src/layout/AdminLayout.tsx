@@ -17,6 +17,8 @@ import {
   Typography,
 } from '@mui/material'
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
+import AppsRoundedIcon from '@mui/icons-material/AppsRounded'
+import HubRoundedIcon from '@mui/icons-material/HubRounded'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import LockResetRoundedIcon from '@mui/icons-material/LockResetRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
@@ -33,6 +35,8 @@ const drawerWidth = 248
 const navItems = [
   { label: 'Dashboard', icon: <DashboardRoundedIcon />, path: '/dashboard' },
   { label: 'Admin Users', icon: <PeopleAltRoundedIcon />, path: '/admin-users' },
+  { label: 'User Pools', icon: <HubRoundedIcon />, path: '/user-pools' },
+  { label: 'Applications', icon: <AppsRoundedIcon />, path: '/applications' },
 ]
 
 const pageMeta: Record<string, { title: string; description: string }> = {
@@ -43,6 +47,14 @@ const pageMeta: Record<string, { title: string; description: string }> = {
   '/admin-users': {
     title: 'Admin Users',
     description: 'Create, edit, and disable backoffice administrators.',
+  },
+  '/user-pools': {
+    title: 'User Pools',
+    description: 'Manage user pool boundaries and profile field definitions.',
+  },
+  '/applications': {
+    title: 'Applications',
+    description: 'Manage registered applications, redirect URIs, and secrets.',
   },
 }
 
