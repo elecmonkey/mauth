@@ -2,16 +2,21 @@
   "name": "mauth",
   "private": true,
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "lefthook": "^2.1.6"
   },
   "scripts": {
     "dev": "FORCE_COLOR=1 CLICOLOR_FORCE=1 concurrently -k -n backend,admin,login -c blue,green,magenta \"bacon --headless run\" \"pnpm dev:admin\" \"pnpm dev:login\"",
     "dev:frontend": "FORCE_COLOR=1 CLICOLOR_FORCE=1 concurrently -k -n admin,login -c green,magenta \"pnpm dev:admin\" \"pnpm dev:login\"",
     "dev:admin": "pnpm --filter @mauth/admin dev",
+    "prepare": "lefthook install",
     "dev:login": "pnpm --filter @mauth/login dev",
     "check:frontend": "pnpm --filter @mauth/admin check && pnpm --filter @mauth/login check",
     "check:backend": "cargo check",
-    "check": "pnpm check:frontend && pnpm check:backend"
+    "check": "pnpm check:frontend && pnpm check:backend",
+    "format:frontend": "pnpm --filter @mauth/admin format && pnpm --filter @mauth/login format",
+    "format:backend": "cargo fmt",
+    "format": "pnpm format:frontend && pnpm format:backend"
   },
   "packageManager": "pnpm@10.33.0"
 }

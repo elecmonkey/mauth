@@ -1,0 +1,22 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: format-admin
+      root: packages/admin
+      glob:
+        - '*.{js,jsx,ts,tsx,json,jsonc,json5,css,scss,less,md,mdx,html,yml,yaml}'
+      run: pnpm exec oxfmt -c .oxfmtrc.json {staged_files}
+      stage_fixed: true
+
+    - name: format-login
+      root: packages/login
+      glob:
+        - '*.{js,ts,svelte,json,jsonc,json5,css,scss,less,md,html,yml,yaml}'
+      run: pnpm exec prettier --config .prettierrc --ignore-path .prettierignore --write {staged_files}
+      stage_fixed: true
+
+    - name: format-rust
+      glob:
+        - '*.rs'
+      run: rustfmt --edition 2024 {staged_files}
+      stage_fixed: true
