@@ -21,6 +21,7 @@ pub struct AuthState {
 
 pub async fn build_app_state(config: &Config) -> anyhow::Result<AppState> {
     let db = infrastructure::db::connect_database(config).await?;
+    infrastructure::db::sync_schema(&db).await?;
 
     Ok(AppState {
         app_name: Arc::from(config.app_name.clone()),

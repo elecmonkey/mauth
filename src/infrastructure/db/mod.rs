@@ -4,7 +4,7 @@ use anyhow::Context;
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use tracing::info;
 
-use crate::config::Config;
+use crate::{config::Config, entity};
 
 pub async fn connect_database(config: &Config) -> anyhow::Result<DatabaseConnection> {
     let mut options = ConnectOptions::new(config.database_url.clone());
@@ -24,4 +24,16 @@ pub async fn connect_database(config: &Config) -> anyhow::Result<DatabaseConnect
     );
 
     Ok(db)
+}
+
+pub async fn sync_schema(db: &DatabaseConnection) -> anyhow::Result<()> {
+    db.get_schema_builder()
+        .register(entity::admin_user::Entity)
+        .sync(db)
+        .await
+        .context("failed to synchronize schema from entities")?;
+
+    info!("database schema synchronized");
+
+    Ok(())
 }

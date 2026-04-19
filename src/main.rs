@@ -2,6 +2,7 @@ mod app;
 mod application;
 mod config;
 mod domain;
+mod entity;
 mod error;
 mod http;
 mod infrastructure;
