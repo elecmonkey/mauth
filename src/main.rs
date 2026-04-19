@@ -12,7 +12,9 @@ use tracing::info;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let config = config::Config::from_env();
+    dotenvy::dotenv().ok();
+
+    let config = config::Config::from_env().context("failed to load config")?;
     config.init_tracing();
 
     let state = state::build_app_state(&config)
