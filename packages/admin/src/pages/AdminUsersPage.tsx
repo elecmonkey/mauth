@@ -133,10 +133,20 @@ export function AdminUsersPage() {
           sx={{ minWidth: { xs: '100%', md: 320 } }}
         />
         <Stack direction='row' spacing={1.5}>
-          <Button variant='outlined' startIcon={<RefreshRoundedIcon />} onClick={() => listQuery.refetch()}>
+          <Button
+            variant='outlined'
+            startIcon={<RefreshRoundedIcon />}
+            onClick={() => listQuery.refetch()}
+            sx={{ px: 2.25 }}
+          >
             Refresh
           </Button>
-          <Button variant='contained' startIcon={<AddRoundedIcon />} onClick={openCreateDialog}>
+          <Button
+            variant='contained'
+            startIcon={<AddRoundedIcon />}
+            onClick={openCreateDialog}
+            sx={{ px: 2.5 }}
+          >
             New Admin
           </Button>
         </Stack>

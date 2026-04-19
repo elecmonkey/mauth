@@ -40,7 +40,7 @@ export function AdminUserFormDialog({
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth='sm'>
       <DialogTitle>{mode === 'create' ? 'Create Admin User' : 'Edit Admin User'}</DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{ px: 3, pt: 1.5, pb: 0 }}>
         <Stack spacing={2} sx={{ mt: 1 }}>
           <TextField
             label='Email'
@@ -78,9 +78,14 @@ export function AdminUserFormDialog({
           />
         </Stack>
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{ px: 3, pb: 3, pt: 2 }}>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={() => onSubmit(values)} variant='contained' disabled={submitting}>
+        <Button
+          onClick={() => onSubmit(values)}
+          variant='contained'
+          disabled={submitting}
+          sx={{ px: 2.25 }}
+        >
           {mode === 'create' ? 'Create' : 'Save'}
         </Button>
       </DialogActions>

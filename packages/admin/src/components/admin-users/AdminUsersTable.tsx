@@ -46,12 +46,7 @@ export function AdminUsersTable({
           {items.map((user) => (
             <TableRow key={user.id} hover>
               <TableCell>
-                <Stack>
-                  <Typography sx={{ fontWeight: 600 }}>{user.nickname}</Typography>
-                  <Typography variant='caption' color='text.secondary'>
-                    {user.id}
-                  </Typography>
-                </Stack>
+                <Typography sx={{ fontWeight: 600 }}>{user.nickname}</Typography>
               </TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.isActive ? 'Active' : 'Disabled'}</TableCell>
@@ -61,7 +56,12 @@ export function AdminUsersTable({
               </TableCell>
               <TableCell align='right'>
                 <Stack direction='row' spacing={1} sx={{ justifyContent: 'flex-end' }}>
-                  <Button size='small' startIcon={<EditRoundedIcon />} onClick={() => onEdit(user)}>
+                  <Button
+                    size='small'
+                    startIcon={<EditRoundedIcon />}
+                    onClick={() => onEdit(user)}
+                    sx={{ px: 1.5, py: 0.625 }}
+                  >
                     Edit
                   </Button>
                   <Button
@@ -70,6 +70,7 @@ export function AdminUsersTable({
                     startIcon={<DeleteRoundedIcon />}
                     disabled={currentUserId === user.id || deleting}
                     onClick={() => onDelete(user.id)}
+                    sx={{ px: 1.5, py: 0.625 }}
                   >
                     Delete
                   </Button>

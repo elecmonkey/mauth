@@ -75,7 +75,7 @@ export function AdminLayout() {
                 key={item.path}
                 selected={location.pathname === item.path}
                 onClick={() => navigate(item.path)}
-                sx={{ borderRadius: 2, mb: 0.5 }}
+                sx={{ borderRadius: 1, mb: 0.5 }}
               >
                 <ListItemIcon sx={{ minWidth: 40 }}>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.label} />

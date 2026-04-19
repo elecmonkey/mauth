@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles'
 export const appTheme = createTheme({
   cssVariables: true,
   shape: {
-    borderRadius: 14,
+    borderRadius: 4,
   },
   palette: {
     mode: 'light',
@@ -27,12 +27,38 @@ export const appTheme = createTheme({
       defaultProps: {
         disableElevation: true,
       },
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+        },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 4,
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 3,
+        },
+      },
     },
     MuiCard: {
       styleOverrides: {
         root: {
           border: '1px solid rgba(15, 23, 42, 0.08)',
-          boxShadow: '0 12px 32px rgba(15, 23, 42, 0.06)',
+          boxShadow: '0 4px 16px rgba(15, 23, 42, 0.05)',
         },
       },
     },

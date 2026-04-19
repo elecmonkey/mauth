@@ -53,7 +53,7 @@ export function LoginPage() {
           'linear-gradient(180deg, rgba(25,118,210,0.10) 0%, rgba(245,247,251,1) 45%)',
       }}
     >
-      <Card sx={{ width: '100%', maxWidth: 440, borderRadius: 4, boxShadow: 8 }}>
+      <Card sx={{ width: '100%', maxWidth: 440, boxShadow: 6 }}>
         <CardContent sx={{ p: 4 }}>
           <Stack spacing={3}>
             <Stack spacing={1} sx={{ alignItems: 'center' }}>
