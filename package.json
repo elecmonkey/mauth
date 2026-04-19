@@ -1,7 +1,12 @@
 {
   "name": "mauth",
   "private": true,
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
   "scripts": {
+    "dev": "FORCE_COLOR=1 CLICOLOR_FORCE=1 concurrently -k -n backend,admin,login -c blue,green,magenta \"pnpm dev:backend\" \"pnpm dev:admin\" \"pnpm dev:login\"",
+    "dev:frontend": "FORCE_COLOR=1 CLICOLOR_FORCE=1 concurrently -k -n admin,login -c green,magenta \"pnpm dev:admin\" \"pnpm dev:login\"",
     "dev:admin": "pnpm --filter @mauth/admin dev",
     "build:admin": "pnpm --filter @mauth/admin build",
     "lint:admin": "pnpm --filter @mauth/admin lint",
