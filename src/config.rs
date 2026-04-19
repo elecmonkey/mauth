@@ -16,6 +16,7 @@ pub struct Config {
     pub auth_issuer: String,
     pub admin_jwt_secret: String,
     pub admin_jwt_expires_days: i64,
+    pub admin_totp_encryption_key: String,
 }
 
 impl Config {
@@ -36,6 +37,7 @@ impl Config {
         let auth_issuer = env::var("AUTH_ISSUER").unwrap_or_else(|_| app_name.clone());
         let admin_jwt_secret = required_env("ADMIN_JWT_SECRET")?;
         let admin_jwt_expires_days = parse_env("ADMIN_JWT_EXPIRES_DAYS", 7_i64)?;
+        let admin_totp_encryption_key = required_env("ADMIN_TOTP_ENCRYPTION_KEY")?;
 
         Ok(Self {
             app_name,
@@ -48,6 +50,7 @@ impl Config {
             auth_issuer,
             admin_jwt_secret,
             admin_jwt_expires_days,
+            admin_totp_encryption_key,
         })
     }
 

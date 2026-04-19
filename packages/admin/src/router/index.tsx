@@ -1,6 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router'
 import { AdminLayout } from '../layout/AdminLayout'
-import { ChangePasswordPage } from '../pages/ChangePasswordPage'
 import { DashboardPage } from '../pages/DashboardPage'
 import { LoginPage } from '../pages/LoginPage'
 import { AdminUsersPage } from '../pages/AdminUsersPage'
@@ -22,7 +21,6 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to='/dashboard' replace /> },
       { path: 'dashboard', element: <DashboardPage /> },
       { path: 'admin-users', element: <AdminUsersPage /> },
-      { path: 'profile/password', element: <ChangePasswordPage /> },
     ],
   },
   {

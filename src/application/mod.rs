@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 
+pub mod admin_auth;
 pub mod admin_users;
 pub mod applications;
 pub mod auth;

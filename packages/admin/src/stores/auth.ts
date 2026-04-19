@@ -12,6 +12,10 @@ export function setSession(accessToken: string, user: AdminUser) {
   localStorage.setItem(ADMIN_USER_KEY, JSON.stringify(user))
 }
 
+export function setStoredAdminUser(user: AdminUser) {
+  localStorage.setItem(ADMIN_USER_KEY, JSON.stringify(user))
+}
+
 export function clearSession() {
   localStorage.removeItem(ACCESS_TOKEN_KEY)
   localStorage.removeItem(ADMIN_USER_KEY)

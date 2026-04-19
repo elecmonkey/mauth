@@ -11,6 +11,12 @@ pub struct AdminLoginRequest {
 }
 
 #[derive(Debug, Deserialize)]
+pub struct AdminLoginTotpRequest {
+    pub challenge_token: String,
+    pub totp_code: String,
+}
+
+#[derive(Debug, Deserialize)]
 pub struct ListAdminUsersQuery {
     pub keyword: Option<String>,
     pub page: Option<u64>,
@@ -37,6 +43,17 @@ pub struct ChangeMyPasswordRequest {
     pub new_password: String,
 }
 
+#[derive(Debug, Deserialize)]
+pub struct ConfirmTotpRequest {
+    pub totp_code: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct DisableTotpRequest {
+    pub current_password: String,
+    pub totp_code: String,
+}
+
 #[derive(Debug, Serialize)]
 pub struct AdminUserResponse {
     pub id: Uuid,
@@ -51,9 +68,31 @@ pub struct AdminUserResponse {
 
 #[derive(Debug, Serialize)]
 pub struct AdminLoginResponse {
-    pub access_token: String,
-    pub token_type: &'static str,
-    pub expires_in: i64,
+    pub status: &'static str,
+    pub requires_totp: bool,
+    pub access_token: Option<String>,
+    pub token_type: Option<&'static str>,
+    pub expires_in: Option<i64>,
+    pub challenge_token: Option<String>,
+    pub challenge_expires_in: Option<i64>,
+    pub user: AdminUserResponse,
+}
+
+#[derive(Debug, Serialize)]
+pub struct TotpStatusResponse {
+    pub enabled: bool,
+}
+
+#[derive(Debug, Serialize)]
+pub struct TotpSetupResponse {
+    pub secret: String,
+    pub otpauth_uri: String,
+    pub qr_svg: String,
+}
+
+#[derive(Debug, Serialize)]
+pub struct TotpUpdateResponse {
+    pub success: bool,
     pub user: AdminUserResponse,
 }
 

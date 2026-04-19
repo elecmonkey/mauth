@@ -1,24 +1,31 @@
+import { useState, type MouseEvent } from 'react'
 import {
   AppBar,
   Avatar,
   Box,
+  Button,
+  Divider,
   Drawer,
-  IconButton,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Menu,
+  MenuItem,
   Stack,
   Toolbar,
-  Tooltip,
   Typography,
 } from '@mui/material'
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import LockResetRoundedIcon from '@mui/icons-material/LockResetRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded'
+import SecurityRoundedIcon from '@mui/icons-material/SecurityRounded'
 import ShieldRoundedIcon from '@mui/icons-material/ShieldRounded'
 import { Outlet, useLocation, useNavigate } from 'react-router'
+import { ChangePasswordDialog } from '../components/profile/ChangePasswordDialog'
+import { SecurityDialog } from '../components/profile/SecurityDialog'
 import { clearSession, getStoredAdminUser } from '../stores/auth'
 
 const drawerWidth = 248
@@ -26,17 +33,55 @@ const drawerWidth = 248
 const navItems = [
   { label: 'Dashboard', icon: <DashboardRoundedIcon />, path: '/dashboard' },
   { label: 'Admin Users', icon: <PeopleAltRoundedIcon />, path: '/admin-users' },
-  { label: 'Change Password', icon: <LockResetRoundedIcon />, path: '/profile/password' },
 ]
+
+const pageMeta: Record<string, { title: string; description: string }> = {
+  '/dashboard': {
+    title: 'Dashboard',
+    description: 'Manage internal administrators for MAuth.',
+  },
+  '/admin-users': {
+    title: 'Admin Users',
+    description: 'Create, edit, and disable backoffice administrators.',
+  },
+}
 
 export function AdminLayout() {
   const location = useLocation()
   const navigate = useNavigate()
   const currentUser = getStoredAdminUser()
+  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
+  const [passwordDialogOpen, setPasswordDialogOpen] = useState(false)
+  const [securityDialogOpen, setSecurityDialogOpen] = useState(false)
+
+  const currentPage = pageMeta[location.pathname] ?? {
+    title: 'Admin',
+    description: 'Manage internal administrators for MAuth.',
+  }
+  const menuOpen = Boolean(menuAnchorEl)
+
+  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
+    setMenuAnchorEl(event.currentTarget)
+  }
+
+  const handleCloseUserMenu = () => {
+    setMenuAnchorEl(null)
+  }
 
   const handleLogout = () => {
+    handleCloseUserMenu()
     clearSession()
     navigate('/login', { replace: true })
+  }
+
+  const handleOpenSecurity = () => {
+    handleCloseUserMenu()
+    setSecurityDialogOpen(true)
+  }
+
+  const handleOpenChangePassword = () => {
+    handleCloseUserMenu()
+    setPasswordDialogOpen(true)
   }
 
   return (
@@ -95,25 +140,63 @@ export function AdminLayout() {
           <Toolbar sx={{ justifyContent: 'space-between' }}>
             <Box>
               <Typography variant='h6' sx={{ fontWeight: 700 }}>
-                {navItems.find((item) => item.path === location.pathname)?.label ?? 'Admin'}
+                {currentPage.title}
               </Typography>
               <Typography variant='body2' color='text.secondary'>
-                Manage internal administrators for MAuth.
+                {currentPage.description}
               </Typography>
             </Box>
-            <Stack direction='row' spacing={2} sx={{ alignItems: 'center' }}>
-              <Box sx={{ textAlign: 'right' }}>
-                <Typography variant='subtitle2'>{currentUser?.nickname ?? 'Admin'}</Typography>
-                <Typography variant='caption' color='text.secondary'>
-                  {currentUser?.email ?? 'Unknown'}
-                </Typography>
-              </Box>
-              <Tooltip title='Sign out'>
-                <IconButton onClick={handleLogout}>
-                  <LogoutRoundedIcon />
-                </IconButton>
-              </Tooltip>
-            </Stack>
+            <Button
+              color='inherit'
+              onClick={handleOpenUserMenu}
+              endIcon={<KeyboardArrowDownRoundedIcon />}
+              sx={{
+                px: 1.5,
+                py: 0.75,
+                textTransform: 'none',
+                borderRadius: 1,
+                minWidth: 0,
+              }}
+            >
+              <Stack direction='row' spacing={1.5} sx={{ alignItems: 'center' }}>
+                <Avatar sx={{ width: 34, height: 34, bgcolor: 'primary.main' }}>
+                  {(currentUser?.nickname ?? 'A').slice(0, 1).toUpperCase()}
+                </Avatar>
+                <Box sx={{ textAlign: 'left' }}>
+                  <Typography variant='subtitle2'>{currentUser?.nickname ?? 'Admin'}</Typography>
+                  <Typography variant='caption' color='text.secondary'>
+                    {currentUser?.email ?? 'Unknown'}
+                  </Typography>
+                </Box>
+              </Stack>
+            </Button>
+            <Menu
+              anchorEl={menuAnchorEl}
+              open={menuOpen}
+              onClose={handleCloseUserMenu}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+              <MenuItem onClick={handleOpenSecurity}>
+                <ListItemIcon sx={{ minWidth: 36 }}>
+                  <SecurityRoundedIcon fontSize='small' />
+                </ListItemIcon>
+                <ListItemText primary='Security' secondary='Two-factor authentication' />
+              </MenuItem>
+              <MenuItem onClick={handleOpenChangePassword}>
+                <ListItemIcon sx={{ minWidth: 36 }}>
+                  <LockResetRoundedIcon fontSize='small' />
+                </ListItemIcon>
+                <ListItemText primary='Change Password' />
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={handleLogout}>
+                <ListItemIcon sx={{ minWidth: 36 }}>
+                  <LogoutRoundedIcon fontSize='small' />
+                </ListItemIcon>
+                <ListItemText primary='Sign out' />
+              </MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
 
@@ -121,6 +204,11 @@ export function AdminLayout() {
           <Outlet />
         </Box>
       </Box>
+      <ChangePasswordDialog
+        open={passwordDialogOpen}
+        onClose={() => setPasswordDialogOpen(false)}
+      />
+      <SecurityDialog open={securityDialogOpen} onClose={() => setSecurityDialogOpen(false)} />
     </Box>
   )
 }

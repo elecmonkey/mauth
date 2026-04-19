@@ -1,16 +1,24 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   changeMyPassword,
+  confirmMyTotp,
   createAdminUser,
   deleteAdminUser,
   fetchAdminUsers,
+  fetchMyTotpStatus,
+  loginAdminTotp,
   loginAdmin,
+  setupMyTotp,
+  disableMyTotp,
   updateAdminUser,
 } from '../api'
 import type {
   AdminLoginPayload,
+  AdminLoginTotpPayload,
   ChangeMyPasswordPayload,
+  ConfirmTotpPayload,
   CreateAdminUserPayload,
+  DisableTotpPayload,
   ListAdminUsersParams,
   UpdateAdminUserPayload,
 } from '../types/index'
@@ -18,11 +26,18 @@ import type {
 export const adminQueryKeys = {
   all: ['admin'] as const,
   users: (params: ListAdminUsersParams) => ['admin', 'users', params] as const,
+  totpStatus: () => ['admin', 'totp-status'] as const,
 }
 
 export function useAdminLoginMutation() {
   return useMutation({
     mutationFn: (payload: AdminLoginPayload) => loginAdmin(payload),
+  })
+}
+
+export function useAdminLoginTotpMutation() {
+  return useMutation({
+    mutationFn: (payload: AdminLoginTotpPayload) => loginAdminTotp(payload),
   })
 }
 
@@ -70,5 +85,40 @@ export function useDeleteAdminUserMutation() {
 export function useChangeMyPasswordMutation() {
   return useMutation({
     mutationFn: (payload: ChangeMyPasswordPayload) => changeMyPassword(payload),
+  })
+}
+
+export function useMyTotpStatusQuery() {
+  return useQuery({
+    queryKey: adminQueryKeys.totpStatus(),
+    queryFn: fetchMyTotpStatus,
+  })
+}
+
+export function useSetupMyTotpMutation() {
+  return useMutation({
+    mutationFn: setupMyTotp,
+  })
+}
+
+export function useConfirmMyTotpMutation() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (payload: ConfirmTotpPayload) => confirmMyTotp(payload),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: adminQueryKeys.totpStatus() })
+    },
+  })
+}
+
+export function useDisableMyTotpMutation() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (payload: DisableTotpPayload) => disableMyTotp(payload),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: adminQueryKeys.totpStatus() })
+    },
   })
 }

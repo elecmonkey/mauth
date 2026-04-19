@@ -5,7 +5,6 @@ use sea_orm::DatabaseConnection;
 
 use crate::{config::Config, infrastructure};
 
-#[allow(dead_code)]
 #[derive(Clone)]
 pub struct AppState {
     pub app_name: Arc<str>,
@@ -13,12 +12,12 @@ pub struct AppState {
     pub auth: AuthState,
 }
 
-#[allow(dead_code)]
 #[derive(Clone)]
 pub struct AuthState {
     pub issuer: Arc<str>,
     pub admin_jwt_secret: Arc<str>,
     pub admin_jwt_expires_days: i64,
+    pub admin_totp_encryption_key: Arc<str>,
 }
 
 impl FromRef<AppState> for AuthState {
@@ -38,6 +37,7 @@ pub async fn build_app_state(config: &Config) -> anyhow::Result<AppState> {
             issuer: Arc::from(config.auth_issuer.clone()),
             admin_jwt_secret: Arc::from(config.admin_jwt_secret.clone()),
             admin_jwt_expires_days: config.admin_jwt_expires_days,
+            admin_totp_encryption_key: Arc::from(config.admin_totp_encryption_key.clone()),
         },
     })
 }

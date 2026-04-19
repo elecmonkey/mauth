@@ -7,15 +7,19 @@ edition = "2024"
 anyhow = "1"
 argon2 = "0.5"
 axum = { version = "0.8", features = ["macros"] }
+aes-gcm = "0.10"
+base64 = "0.22"
 chrono = { version = "0.4", features = ["clock", "serde"] }
 dotenvy = "0.15"
 http = "1"
 jsonwebtoken = { version = "10.3.0", features = ["rust_crypto"] }
+qrcode = "0.14"
 sea-orm = { version = "2.0.0-rc.36", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros", "schema-sync", "with-chrono", "with-uuid"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 thiserror = "2"
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "net"] }
+totp-rs = { version = "5.7", features = ["otpauth", "gen_secret"] }
 tower = { version = "0.5", features = ["timeout"] }
 tower-http = { version = "0.6", features = ["trace", "request-id", "compression-full", "cors"] }
 tracing = "0.1"
